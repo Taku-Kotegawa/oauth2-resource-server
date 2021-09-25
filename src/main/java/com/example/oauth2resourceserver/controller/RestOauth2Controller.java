@@ -2,6 +2,7 @@ package com.example.oauth2resourceserver.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,10 @@ import java.util.List;
 public class RestOauth2Controller {
 
     @GetMapping(path = "/list")
-    public List<String> getProducts(@AuthenticationPrincipal Jwt jwt) {
+    public List<String> getProducts() {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        SecurityContext sc = SecurityContextHolder.getContext();
+        Authentication auth = sc.getAuthentication();
         auth.getAuthorities().stream().forEach(f -> {
             System.out.println(f.getAuthority());
         });
