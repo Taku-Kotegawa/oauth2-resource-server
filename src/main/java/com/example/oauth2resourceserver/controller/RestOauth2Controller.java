@@ -20,8 +20,7 @@ public class RestOauth2Controller {
     @GetMapping(path = "/list")
     public List<String> getProducts() {
 
-        SecurityContext sc = SecurityContextHolder.getContext();
-        Authentication auth = sc.getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         auth.getAuthorities().stream().forEach(f -> {
             System.out.println(f.getAuthority());
         });
